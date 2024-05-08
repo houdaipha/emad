@@ -1,0 +1,58 @@
+data:
+  root_dir: /home/houdaifa.atou/lustre/data_sec-um6p-st-sccs-6sevvl76uja/IDS/hdf/Datasets/EMAD/
+  num_frames: 16
+  audio_target_length: 80640
+model:
+  mae_pretrained_path:  /home/houdaifa.atou/lustre/data_sec-um6p-st-sccs-6sevvl76uja/IDS/hdf/modelsWeights/mae.pt
+  mae_out_features: 64
+  mae_global_pool: avg # avg, token
+  mae_frozen: true
+  mae_frames: 16
+  mae_proj_dropout: 0.1
+
+  # Transformer version
+  mae_tr_dim: 128
+  mae_tr_dim_feedforward: 512
+  mae_tr_dropout: 0.1
+  mae_tr_nheads: 4
+  mae_tr_num_layers: 2
+  mae_head_dropout: 0.1
+
+  # Hubert
+  hubert_pretrained_model_path: /home/houdaifa.atou/lustre/data_sec-um6p-st-sccs-6sevvl76uja/IDS/hdf/modelsWeights/hubert-large-ls960-ft-pre.pt
+  hubert_out_features: 64
+  hubert_frames: 251
+  hubert_freeze_feature_extractor: true
+  hubert_head_dropout: 0.1
+  
+  # Cross Transformer
+  tr_dim: 128
+  tr_dim_feedforward: 512
+  tr_dropout: 0.1
+  tr_nheads: 4
+  tr_num_layers: 2
+
+  # Head
+  proj_dropout: 0.1
+  tr_global_pool: avg # avg, token
+  head_dropout: 0.1
+  num_frames: 64
+  out_features: 4
+
+train:
+  batch_size: 64
+  epochs: 100
+  num_workers: 2
+  save_interval: 20
+  lr: 3.0e-04
+  opt_wd: 0.01
+  opt_betas: [0.9, 0.999]
+  sched_final_decay: exp
+  sched_phase_ration: [0.1, 0, 0.9]
+  debug: false
+  train: [4, 0, 2, 1]
+  val: [3]
+  out_path: /home/houdaifa.atou/lustre/data_sec-um6p-st-sccs-6sevvl76uja/IDS/hdf/weights/MERT/mert
+  last_trained_checkpoint: null
+  seed: 0
+  note: changing normalization, in mae also
